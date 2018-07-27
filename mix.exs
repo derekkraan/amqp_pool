@@ -23,7 +23,7 @@ defmodule AMQPPool.MixProject do
   defp deps do
     [
       {:poolboy, "~> 1.5.1"},
-      {:amqp, "0.3.1"},
+      {:amqp, "~> 1.0"},
       {:airbrake, github: "derekkraan/airbrake-elixir"}
     ]
   end
