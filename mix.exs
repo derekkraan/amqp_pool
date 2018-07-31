@@ -7,7 +7,8 @@ defmodule AMQPPool.MixProject do
       version: "0.1.0",
       elixir: "~> 1.6",
       start_permanent: Mix.env() == :prod,
-      deps: deps()
+      deps: deps(),
+      package: package()
     ]
   end
 
@@ -23,8 +24,16 @@ defmodule AMQPPool.MixProject do
   defp deps do
     [
       {:poolboy, "~> 1.5.1"},
-      {:amqp, "~> 1.0"},
-      {:airbrake, github: "derekkraan/airbrake-elixir"}
+      {:amqp, "~> 1.0"}
+    ]
+  end
+
+  defp package do
+    [
+      description: "AMQPPool maintains a pool of AMQP channels for you to use.",
+      licenses: ["MIT"],
+      maintainers: ["Derek Kraan"],
+      links: %{github: "https://github.com/derekkraan/amqp_pool"}
     ]
   end
 end

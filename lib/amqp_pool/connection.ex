@@ -18,7 +18,6 @@ defmodule AMQPPool.Connection do
   #
   # state is of the form `{connection_options, connection}`
   def init(connection_options) do
-    Airbrake.monitor(self())
     {:ok, {connection_options, nil, nil}}
   end
 

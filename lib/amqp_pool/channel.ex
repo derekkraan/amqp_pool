@@ -20,7 +20,6 @@ defmodule AMQPPool.Channel do
   # GenServer callbacks
 
   def init(_args) do
-    Airbrake.monitor(self())
     {:ok, nil}
   end
 
