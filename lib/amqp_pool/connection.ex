@@ -1,15 +1,18 @@
 defmodule AMQPPool.Connection do
+  @moduledoc false
   use GenServer
-  use AMQP
 
+  @doc false
   def start_link(connection_options) do
     GenServer.start_link(__MODULE__, connection_options, name: __MODULE__)
   end
 
+  @doc false
   def connection do
     GenServer.call(__MODULE__, :connection)
   end
 
+  @doc false
   def new_channel do
     GenServer.call(__MODULE__, :new_channel)
   end
@@ -17,10 +20,12 @@ defmodule AMQPPool.Connection do
   # GenServer callbacks
   #
   # state is of the form `{connection_options, connection}`
+  @doc false
   def init(connection_options) do
     {:ok, {connection_options, nil, nil}}
   end
 
+  @doc false
   def handle_call(:connection, _from, state) do
     with {:ok, new_state = {_conn_opts, conn}} <- ensure_connection(state) do
       {:reply, conn, new_state}
@@ -38,11 +43,13 @@ defmodule AMQPPool.Connection do
     end
   end
 
+  @doc false
   def handle_info({:DOWN, _, :process, _pid, _reason}, {conn_opts, _conn, _ch_num}) do
     # TODO log connection down
     {:noreply, {conn_opts, nil, nil}}
   end
 
+  @doc false
   def terminate(_reason, {_conn_opts, nil}), do: :ok
 
   def terminate(_reason, {_conn_opts, conn}) do
