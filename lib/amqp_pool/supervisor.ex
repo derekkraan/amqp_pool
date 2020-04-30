@@ -17,8 +17,8 @@ defmodule AMQPPool.Supervisor do
   end
 
   defp poolboy_config(opts) do
-    passed_opts  = Keyword.get(opts, :pool_settings, [])
-    config_opts = Application.fetch_env!(:amqp_pool, :pool_settings)
+    passed_opts = Keyword.get(opts, :pool_settings, [])
+    config_opts = Application.get_env(:amqp_pool, :pool_settings, %{})
 
     settings = Keyword.merge(config_opts, passed_opts)
 
@@ -31,9 +31,6 @@ defmodule AMQPPool.Supervisor do
   end
 
   defp amqp_connection_settings(opts) do
-    passed_opts  = Keyword.get(opts, :amqp_connection_settings, [])
-    config_opts = Application.fetch_env!(:amqp_pool, :amqp_connection_settings)
-
-    Keyword.merge(config_opts, passed_opts)
+    Keyword.fetch!(opts, :amqp_connection_settings)
   end
 end

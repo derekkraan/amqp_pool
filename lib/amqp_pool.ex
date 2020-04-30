@@ -13,11 +13,12 @@ defmodule AMQPPool do
     pool_size: 20,
     max_overflow: 40
 
-  config :amqp_pool, :amqp_connection_settings,
-    username: "",
-    password: "",
-    host: "",
-    virtual_host: ""
+  # You can only set these in the supervision tree
+  # config :amqp_pool, :amqp_connection_settings,
+  #   username: "",
+  #   password: "",
+  #   host: "",
+  #   virtual_host: ""
   ```
 
   You can override these options later when adding AMQPPool to your supervision tree (see below).
@@ -28,14 +29,14 @@ defmodule AMQPPool do
 
   ```elixir
   defmodule MyApplication.SomeSupervisor do
-  use Supervisor
+    use Supervisor
 
-  def start_link(init_arg) do
-    Supervisor.start_link(__MODULE__, init_arg, name: __MODULE__)
-  end
+    def start_link(init_arg) do
+      Supervisor.start_link(__MODULE__, init_arg, name: __MODULE__)
+    end
 
-  @impl true
-  def init(_init_arg) do
+    @impl true
+    def init(_init_arg) do
       runtime_options = [
         amqp_connection_settings: [virtual_host: ""],
         pool_settings: [pool_size: 10, max_overflow: 10]
